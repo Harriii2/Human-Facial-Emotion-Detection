@@ -6,6 +6,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 import cv2
+import os
 
 app = Flask(__name__)
 model = load_model('facialemotionmodel.h5')
@@ -53,4 +54,5 @@ def predict():
     return jsonify({'emotion': emotion})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
